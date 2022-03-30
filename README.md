@@ -12,7 +12,7 @@
 - [Live application](#live-application)
 - [Details](#details)
 - [Security](#security)
-  - [Automatic Node App Restarts](#automatic-node-app-restarts)
+    - [Automatic Node App Restarts](#automatic-node-app-restarts)
 - [Connecting to the MongoDB Cluster remotely](#connecting-to-the-mongodb-cluster-remotely)
   - [Retrieve connection string](#retrieve-connection-string)
   - [Using Axios](#using-axios)
@@ -30,7 +30,7 @@
 # Introduction
 
 This is a quick, basic and simple "to-do" application (not industry standard) demonstrating client side JavaScript DOM manipulation, validation using the sanitize-html NPM package, MongoDB as the database for document storage and retrieval, along with server-side JavaScript code in Node.js on an Express backend server back-end.
-Protected routes with
+Protected routes with WWW-Authenticate and user input sanitized with sanitize-html@2.7.0.
 
 ## Package used
 
@@ -59,6 +59,8 @@ Create an .env file and enter the following:
 # Live application
 
 To view the live application visit the following URL:
+
+- [https://the-great-irish-bucket-list.herokuapp.com/](https://the-great-irish-bucket-list.herokuapp.com/)
 
 ---
 
