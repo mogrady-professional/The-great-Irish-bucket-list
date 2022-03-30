@@ -11,7 +11,7 @@ let { MongoClient, ObjectId } = require("mongodb"); // Bring in MongoClient and 
 
 // ObjectId -> MongoDB object to retrieve and work with an item (id) of an object from the MongoDB Database
 
-let app = express();
+let app = express(); // cal express
 let db;
 
 // Make the port dynamic for running on both the server and hosting provider -> Heroku
@@ -26,16 +26,13 @@ app.use(express.static("public"));
 
 async function go() {
   // wait for connection
-
-  let client = new MongoClient(MONGOCLIENT_CONNECTION_STRING); // connection string
-
-  // - mongodb+srv://mogrady_professional:3byKDGnmKi9xZ7r@cluster0.lq3a2.mongodb.net/test
+  let client = new MongoClient(MONGOCLIENT_CONNECTION_STRING); // secret connection string
 
   await client.connect();
   db = client.db();
   // Now by the time the application starts running, it will be pointing towards the database
 
-  app.listen(port);
+  app.listen(port); // Listen for incoming requests on the port
 }
 
 go();
@@ -63,20 +60,24 @@ function passwordProtected(req, res, next) {
 // Password protected route
 app.use(passwordProtected);
 
-// Tell the app what do do if it recieved an incoming request to the homepage
-// Given 3 arguments; express calls each argument
+// Tell server what to do when a get request is made to the root of the server
+// Run the passwordProtected function when the get request is made
+
 app.get("/", passwordProtected, function (req, res) {
+  // a) Send back a response
   // Anonymous function, pass in parameters
+  // Parameters -> req -> request object -> contains information about the request
+  // Parameters -> req -> response object -> contains information about the response
 
   // find() -> is the mongodb way of loading data
   // toArray() -> converts into a JavaScript Array
   db.collection("items")
     .find()
     .toArray(function (err, items) {
+      // res.send("Hello, welcome the app.");
       // console.log(items);
 
-      // res.send("Hello, welcome to our app.");
-      // The below is NOT industry standard, this is just to give a demonstration of how it can be done for beginners.
+      // The below is NOT industry standard, this is just to give a demonstration of how server response can be done for beginners.
       res.send(`
       <!DOCTYPE html>
       <html lang="en">
@@ -214,16 +215,16 @@ app.get("/", passwordProtected, function (req, res) {
     }); // You could place a query here in the find() also!
 });
 
-// Pass in 2 arguments
-// 1 -> page the user will be sent to after the form submit (POST)
+// POST route for creating a new item -> page the user will be sent to after the form submit (POST)
 app.post("/create-item", passwordProtected, function (req, res) {
   // console.log(req.body.item); // inside the body of the html above!
 
+  // Sanitize the input
+  // package takes two parameters, the text to sanitize and options. See the npm package for details
   let safeText = sanitizeHTML(req.body.text, {
     allowedTags: [],
     allowedAttributes: {},
-  }); // do not allow HTML tags or attributes!
-  // package takes two parameters, the text to sanitize and options. See the npm package for details
+  }); // do not allow HTML tags or attributes
 
   // Create a new Document in MongoDB Database
   // Insert object into the database
@@ -270,7 +271,7 @@ app.post("/update-item", function (req, res) {
       },
     }
   );
-  // Parameter a) Which document you want to update. b) set which fields you want to update on the element, c) function to get called once this database action has had a chance to complete
+  // Parameter a) Document you want to update. b) set which fields you want to update on the element, c) function to get called once this database action has had a chance to complete
   // But first: Need to retrieve the ID of the item from the MongoDB Database
 
   // Preform CRUD operation on these documents
