@@ -80,138 +80,35 @@ app.get("/", passwordProtected, function (req, res) {
       // The below is NOT industry standard, this is just to give a demonstration of how server response can be done for beginners.
       res.send(`
       <!DOCTYPE html>
-      <html lang="en">
-      
+      <html>
       <head>
-          <meta charset="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <meta name="description" content="" />
-          <meta name="author" content="" />
-          <title>The great Irish bucket list: 35 places you have to visit</title>
-          <!-- Favicon-->
-          <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-          <!-- Bootstrap icons-->
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
-          <!-- Google fonts-->
-          <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-          <!-- Core theme CSS (includes Bootstrap)-->
-          <link href="assets/css/styles.css" rel="stylesheet" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simple The Great Irish Bucket List</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
       </head>
-      
       <body>
-          <!-- Navigation-->
-          <nav class="navbar navbar-light bg-light static-top">
-              <div class="container">
-                  <a class="navbar-brand" href="#">☘️ The Great Irish Bucket List</a>
+        <div class="container">
+          <h1 class="display-4 text-center py-1">The Great Irish Bucket List</h1>       
+          <div class="jumbotron p-3 shadow-sm">
+            <form id="create-form" action="/create-item" method="POST">
+              <div class="d-flex align-items-center">
+                <input id="create-field"  name="item" autofocus autocomplete="off" class="form-control mr-3" type="text" style="flex: 1;">
+                <button class="btn btn-primary">Add New Item</button>
               </div>
-          </nav>
-          <!-- Masthead-->
-          <header class="masthead">
-              <div class="container position-relative">
-                  <div class="row justify-content-center">
-                      <div class="col-xl-6">
-                          <div class="text-center text-white">
-                              <!-- Page heading-->
-                              <h1 class="mb-5">
-                                  The Great Irish Bucket List: 35 places you have to visit!
-                              </h1>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </header>
-          <!-- Icons Grid-->
-          <!-- Image Showcases-->
-          <section class="showcase">
-              <!-- Logic Goes Here -> Start -->
-              <div class="container">
-                  <h1 class="display-4 text-center py-1">Bucket List</h1>
-                  <div class="jumbotron p-3 shadow-sm">
-                      <form id="create-form" action="/create-item" method="POST">
-                          <div class="d-flex align-items-center">
-                              <input id="create-field" name="item" autofocus autocomplete="off" class="form-control mr-3" type="text" style="flex: 1" />
-                              <button class="btn btn-primary">Add New Item</button>
-                          </div>
-                      </form>
-                  </div>
-      
-                  <ul id="item-list" class="list-group pb-5"></ul>
-                  <!-- join() method converts array into string of text -->
-              </div>
-              <!-- Logic Goes Here -> End -->
-              <div class="container-fluid p-0">
-                  <div class="row g-0">
-                      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/doolough-valley-mayo.jpg')"></div>
-                      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                          <h2>1. A Wild Atlantic Way road trip</h2>
-                          <p class="lead mb-0">
-                              People all over the world adore the Wild Atlantic Way, the legendary coastal 2,500km drive that runs from Donegal to Kinsale. Marvel at craggy cliff faces, roaring waves, and fiery red sunsets along this once in a lifetime journey.
-                          </p>
-                      </div>
-                  </div>
-                  <div class="row g-0">
-                      <div class="col-lg-6 text-white showcase-img" style="
-                    background-image: url('assets/img/header-cliffs-of-moher_clare.jpg');
-                  "></div>
-                      <div class="col-lg-6 my-auto showcase-text">
-                          <h2>2. Stand on top of the Cliffs of Moher</h2>
-                          <p class="lead mb-0">
-                              You’ve looked at the photos, you’ve heard all the stories, but there’s nothing quite like standing on top of the iconic Cliffs of Moher for yourself. A trip to this special place in the heart of Clare is one of the best things to do in Ireland. You’ll
-                              find the largest colony of puffins in Ireland on the Cliffs of Moher, visit and meet these adorable seabirds with their brightly coloured beaks.
-                          </p>
-                      </div>
-                  </div>
-                  <div class="row g-0">
-                      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/header-skellig-michael-kerry.jpg"></div>
-                      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                          <h2>3. Explore Skellig Michael</h2>
-                          <p class="lead mb-0">
-                              Featured in the recent Star Wars films, Skellig Michael in Kerry is one of the most spectacular places to go in Ireland. Steps carved into the steep rockface take you to a monastic settlement and beehive huts that date back to the sixth century. Landing
-                              tours to this otherworldly island are an unforgettable experience and boat tours offer a remarkable view of Skellig Michael from the sea.
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </section>
-          <!-- Footer-->
-          <footer class="footer bg-light">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                          <ul class="list-inline mb-2">
-                              <li class="list-inline-item"><a href="#!">About</a></li>
-                              <li class="list-inline-item">⋅</li>
-                              <li class="list-inline-item"><a href="#!">Contact</a></li>
-                              <li class="list-inline-item">⋅</li>
-                              <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                              <li class="list-inline-item">⋅</li>
-                              <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                          </ul>
-                          <p class="text-muted small mb-4 mb-lg-0">
-                              <a href="https://www.discoverireland.ie/irish-bucket-list">Content Provided by Discover Ireland</a>
-                          </p>
-                      </div>
-                      <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                          <ul class="list-inline mb-0">
-                              <li class="list-inline-item me-4">
-                                  <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                              </li>
-                              <li class="list-inline-item me-4">
-                                  <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                              </li>
-                              <li class="list-inline-item">
-                                  <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-          </footer>
-      <script> let items = ${JSON.stringify(items)}</script>
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-      <script src="/browser.js"></script>
-    </body>
-    </html>`);
+            </form>
+          </div>
+          
+          <ul id="item-list" class="list-group pb-5"> 
+  
+          </ul>
+          <!-- join() method converts array into string of text -->
+        </div>
+        <script> let items = ${JSON.stringify(items)}</script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/browser.js"></script>
+      </body>
+      </html>`);
     }); // You could place a query here in the find() also!
 });
 
